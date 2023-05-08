@@ -1,3 +1,8 @@
+using ControledeContatos.Data;
+using ControledeContatos.Repositorio;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace ControledeContatos
 {
     public class Program
@@ -8,6 +13,9 @@ namespace ControledeContatos
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddEntityFrameworkSqlServer().AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
+            builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+
 
             var app = builder.Build();
 
@@ -32,5 +40,13 @@ namespace ControledeContatos
 
             app.Run();
         }
+
+        public IConfiguration Configuration { get;  }
+
+       /* public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllersWithViews();
+            services.AddEntityFrameworkSqlServer().AddDbContext<BancoContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DataBase")));
+        }*/
     }
 }

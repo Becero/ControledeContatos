@@ -1,13 +1,11 @@
-﻿@{
-    ViewData["Title"] = "Confirmação de Apagar o Contato";
+﻿@model ContatoModel
+@{
+    ViewData["Title"] = "Confirmação apagar contato";
 }
 
 <div class="text-center">
-    <h3>Realmente deseja apagar o contado(Caciano Neves)</h3>
+    <h3>Realmente deseja apagar o contato (@Model.Nome)?</h3>
 </div>
 
-<!--Tive que mudar o metodo pq a funcao "btn-block" nao funciona nas norvas versoes 2-->
-<div class="d-grid gap-2">
-    <a class="btn btn-primary btn-block" role="button" asp-controller="Contato" asp-action="Index">Cancelar Exclusão</a>
-    <a class="btn btn-danger btn-block" role="button" asp-controller="Contato" asp-action="Apagar">Confirmar Exclusão</a>
-</div>
+<a class="btn btn-primary btn-block" asp-action="Index" asp-controller="Contato" role="button">Cancelar exclusão</a>
+<a class="btn btn-danger btn-block" asp-action="Apagar" asp-controller="Contato" asp-route-id="@Model.Id" role="button">Confirmar exclusão</a>
