@@ -15,6 +15,7 @@ namespace ControledeContatos
             builder.Services.AddControllersWithViews();
             builder.Services.AddEntityFrameworkSqlServer().AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
             builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
 
             var app = builder.Build();
@@ -41,7 +42,9 @@ namespace ControledeContatos
             app.Run();
         }
 
+#pragma warning disable CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
         public IConfiguration Configuration { get;  }
+#pragma warning restore CS8618 // O campo não anulável precisa conter um valor não nulo ao sair do construtor. Considere declará-lo como anulável.
 
        /* public void ConfigureServices(IServiceCollection services)
         {

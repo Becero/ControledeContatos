@@ -6,7 +6,7 @@
 
 <div class="text-center">
 
-<h1 class="display-4">Cadastrar Contatos</h1>  
+<h1 class="display-4"> Cadastrar Contato </h1>  
 
 </div>
 
@@ -15,16 +15,19 @@
     <div class="form-group">
         <label for="nome">Nome</label>
         <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do Contato">
+        @Html.ValidationMessageFor(x => x.Nome)
     </div>
         
     <div class="form-group">
         <label for="email">Email</label>
         <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do Contato">
+        @Html.ValidationMessageFor(x => x.Email)
     </div>
 
     <div class="form-group">
         <label for="celular">Celular</label>
         <input type="text" asp-for="Celular" class="form-control" placeholder="Digite o celular do Contato">
+        @Html.ValidationMessageFor(x => x.Celular)
     </div>  
     <div class="d-grid gap-2">
       <!--Div nova para fazer a formatação correta-->   

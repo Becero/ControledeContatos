@@ -7,7 +7,7 @@ namespace ControledeContatos.Repositorio {
         //metodos contrato repositorio
         ContatoModel ListarPorId(int id); //carrega os valores na pagina editar
 
-        List<ContatoModel> BuscarTodos(int id); //lista os contatos na home
+        List<ContatoModel> BuscarTodos(); //lista os contatos na home
 
         ContatoModel Adicionar(ContatoModel contato); //salva os contatos no BD
 
