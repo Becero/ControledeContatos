@@ -69,40 +69,36 @@ namespace ControledeContatos.Controllers
                     TempData["MensagemSucesso"] = "Contato cadastro com sucesso";
                     return RedirectToAction("Index");
                 }
-
                 return View(contato);
             }
             catch (Exception erro)
             {
-
                 TempData["MensagemErro"] = $"Não conseguimos cadastrar seu contato,tente novamente, detalhe do erro:{erro.Message}";
                 return RedirectToAction("Index");
             }
         }
 
+        
+        [HttpPost]
+        public IActionResult Alterar(ContatoModel contato)
+        {
+           try
+           {
+             if (ModelState.IsValid)
+             {
+               _contatoRepositorio.Atualizar(contato);
+               TempData["MensagemSucesso"] = "Contato alterado com sucesso";
+               return RedirectToAction("Index");
+             }
+             return View("Editar", contato);
+           }
+           catch (Exception erro)
+           {
+             TempData["MensagemErro"] = $"Não conseguimos atualizar seu contato,tente novamente, detalhe do erro:{erro.Message}";
+             return RedirectToAction("Index");
+           }
 
-            [HttpPost]
-            public IActionResult Alterar(ContatoModel contato)
-            {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _contatoRepositorio.Atualizar(contato);
-                    TempData["MensagemSucesso"] = "Contato alterado com sucesso";
-                    return RedirectToAction("Index");
-                }
-
-                return View("Editar", contato);
-            }
-            catch (Exception erro)
-            {
-
-                TempData["MensagemErro"] = $"Não conseguimos atualizar seu contato,tente novamente, detalhe do erro:{erro.Message}";
-                return RedirectToAction("Index");
-            }
-
-        }
-        }
+        }   
     }
+}
 
