@@ -2,10 +2,12 @@
 using ControledeContatos.Models;
 using ControledeContatos.Repositorio;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ControledeContatos.Controllers
 {
-    [PaginaParaUsuarioLogado] //Adiciona o Filtro 
+    
+    [PaginaRestritaSomenteAdmin] //Adiciona o Filtro 
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
