@@ -1,9 +1,11 @@
-﻿using ControledeContatos.Models;
+﻿using ControledeContatos.Filters;
+using ControledeContatos.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace ControledeContatos.Controllers
 {
+    [PaginaParaUsuarioLogado] //Adiciona o Filtro 
     public class HomeController : Controller
     {
         public IActionResult Index()
