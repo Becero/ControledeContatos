@@ -28,7 +28,7 @@ function getDatatable(id) {
             "sProcessing": "Processando...",
             "sZeroRecords": "Nenhum registro encontrado",
             "sSearch": "Pesquisar",
-            "oPaginate": {
+            "oPaginate": { 
                 "sNext": "Proximo",
                 "sPrevious": "Anterior",
                 "sFirst": "Primeiro",
