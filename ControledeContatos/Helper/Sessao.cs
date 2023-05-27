@@ -30,7 +30,6 @@ namespace ControledeContatos.Helper
 
         public void RemoverSessaoUsuario()
         {
-
             _httpContext.HttpContext.Session.Remove("sessaoUsuarioLogado");
         }
     }

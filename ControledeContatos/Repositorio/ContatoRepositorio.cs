@@ -15,50 +15,40 @@ namespace ControledeContatos.Repositorio
         //teste
         public ContatoModel ListarPorId(int id)
         {
-#pragma warning disable CS8603 // Possível retorno de referência nula.
             return _context.Contatos.FirstOrDefault(x => x.Id == id); //lista o contato correspondente a esse if
-#pragma warning restore CS8603 // Possível retorno de referência nula.
         }
 
-        public List<ContatoModel> BuscarTodos()
+        public List<ContatoModel> BuscarTodos(int usuarioId)
         {
-           return _context.Contatos.ToList();
+           return _context.Contatos.Where(x => x.UsuarioId== usuarioId).ToList();
         }
        
         public ContatoModel Adicionar(ContatoModel contato)
         {
             _context.Contatos.Add(contato);
             _context.SaveChanges();
-
             return contato;
             // gravar no banco de dados
         }
 
         public ContatoModel Atualizar(ContatoModel contato)
         {
-            ContatoModel contatoDB = ListarPorId(contato.Id);
-            
+            ContatoModel contatoDB = ListarPorId(contato.Id);            
             if(contatoDB == null) throw new Exception("Houve um erro na atualização do contato!");
-
             contatoDB.Nome = contato.Nome;
             contatoDB.Email = contato.Email;
             contatoDB.Celular = contato.Celular;
-
             _context.Contatos.Update(contatoDB);
             _context.SaveChanges();
-
             return contatoDB;
         }
 
         public bool Apagar(int id)
         {
             ContatoModel contatoDB = ListarPorId(id);
-
             if(contatoDB == null) throw new Exception("Houve um erro na deleção do contato!");
-
             _context.Contatos.Remove(contatoDB);
             _context.SaveChanges();
-
             return true;
         }
         

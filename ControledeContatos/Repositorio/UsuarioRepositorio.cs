@@ -1,5 +1,6 @@
 ﻿using ControledeContatos.Data;
 using ControledeContatos.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ControledeContatos.Repositorio
 {
@@ -39,8 +40,7 @@ namespace ControledeContatos.Repositorio
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
 
-            return usuario;
-
+                return usuario;
             // gravar no banco de dados
         }
 
@@ -57,12 +57,29 @@ namespace ControledeContatos.Repositorio
             usuarioDB.DataAtualizacao = DateTime.Now;
 
 
+            _context.Usuarios.Update(usuarioDB);
+            _context.SaveChanges();
+            return usuarioDB;
+        }
+
+        public UsuarioModel AlterarSenha(AlterarSenhaModel alterarSenhaModel)
+        {
+            UsuarioModel usuarioDB = ListarPorId(alterarSenhaModel.Id);
+
+            if (usuarioDB == null) throw new Exception("Houve um erro na atualização da senha, usuario não encontrado");
+
+            if (usuarioDB.SenhaValida(alterarSenhaModel.SenhaAtual)) throw new Exception("Senha atual não confere");
+
+            if(usuarioDB.SenhaValida(alterarSenhaModel.NovaSenha)) throw new Exception("Nova senha deve ser diferente da senha atual!");
+
+            usuarioDB.SetNovaSenha(alterarSenhaModel.NovaSenha);
+            usuarioDB.DataAtualizacao = DateTime.Now;
 
             _context.Usuarios.Update(usuarioDB);
             _context.SaveChanges();
-
             return usuarioDB;
         }
+
 
         public bool Apagar(int id)
         {

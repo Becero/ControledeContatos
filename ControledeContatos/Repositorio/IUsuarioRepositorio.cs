@@ -11,6 +11,7 @@ namespace ControledeContatos.Repositorio {
         List<UsuarioModel> BuscarTodos(); //lista os contatos na home
         UsuarioModel Adicionar(UsuarioModel usuario); //salva os contatos no BD
         UsuarioModel Atualizar(UsuarioModel usuario); //serve para pagina de editar
+        UsuarioModel AlterarSenha(AlterarSenhaModel alterarSenhaModel );
         bool Apagar(int id);
     }
 }

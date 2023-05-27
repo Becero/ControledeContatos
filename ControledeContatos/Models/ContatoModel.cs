@@ -18,5 +18,7 @@ namespace ControledeContatos.Models
         [Phone (ErrorMessage = "O celular informado nao e validoo")]
         public string Celular { get; set; }
 
+        public int ? UsuarioId { get; set; }    
+        public UsuarioModel Usuario { get; set; }
     }
 }
