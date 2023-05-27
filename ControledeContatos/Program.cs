@@ -1,6 +1,7 @@
 using ControledeContatos.Data;
 using ControledeContatos.Helper;
 using ControledeContatos.Repositorio;
+using ControleDeContatos.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

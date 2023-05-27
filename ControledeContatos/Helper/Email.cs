@@ -1,19 +1,20 @@
-﻿using System.Net;
+﻿using ControledeContatos.Helper;
+using System.Net;
 using System.Net.Mail;
-
-namespace ControledeContatos.Helper
+namespace ControleDeContatos.Helper
 {
     public class Email : IEmail
     {
         private readonly IConfiguration _configuration;
+
         public Email(IConfiguration configuration)
         {
             _configuration = configuration;
-
         }
+
         public bool Enviar(string email, string assunto, string mensagem)
         {
-           try
+            try
             {
                 string host = _configuration.GetValue<string>("SMTP:Host");
                 string nome = _configuration.GetValue<string>("SMTP:Nome");
@@ -41,9 +42,10 @@ namespace ControledeContatos.Helper
                     return true;
                 }
             }
-            catch(System.Exception ex) 
+            catch (System.Exception erro)
             {
-                //Gravar log de erro ao enviar e-mail
+                // Gravar log de erro ao enviar e-mail
+
                 return false;
             }
         }

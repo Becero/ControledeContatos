@@ -15,10 +15,11 @@ namespace ControledeContatos.Helper
 
             var strHexa = new StringBuilder();
 
-            foreach ( var item in array )
+            foreach (var item in array)
             {
                 strHexa.Append(item.ToString("x2"));
             }
+
             return strHexa.ToString();
         }
     }

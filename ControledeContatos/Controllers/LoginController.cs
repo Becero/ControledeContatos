@@ -9,11 +9,14 @@ namespace ControledeContatos.Controllers
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
         private readonly ISessao _sessao;
+        private readonly IEmail _email;
         public LoginController(IUsuarioRepositorio usuarioRepositorio,
-                                ISessao sessao)
+                                ISessao sessao,
+                                IEmail email)
         {
             _usuarioRepositorio = usuarioRepositorio;
             _sessao = sessao;
+            _email = email;
         }
 
         public IActionResult Index()
@@ -65,14 +68,14 @@ namespace ControledeContatos.Controllers
             }
             catch (Exception erro)
             {
-                TempData["MensagemErro"] = $"Não conseguimos realizar seu logins,tente novamente, detalhe do erro:{erro.Message}";
+                TempData["MensagemErro"] = $"Não conseguimos realizar seu login,tente novamente, detalhe do erro:{erro.Message}";
                 return RedirectToAction("Index");
             }
 
         }
 
         [HttpPost]
-       public IActionResult EnviarLinParaRedefinirSenha(RedefinirSenhaModel redefinirSenhaModel)
+       public IActionResult EnviarLinkParaRedefinirSenha(RedefinirSenhaModel redefinirSenhaModel)
         {
             try
             {
@@ -83,14 +86,26 @@ namespace ControledeContatos.Controllers
                     if (usuario != null)
                     {
                         string novaSenha = usuario.GerarNovaSenha();
-                        _usuarioRepositorio.Atualizar(usuario);
+                        string mensagem = $"Sua nova senha é: {novaSenha}";
 
-                        TempData["MensagemSucesso"] = $"Enviamos para seu email cadastrado uma nova senha.";
+                        bool emailEnviado = _email.Enviar(usuario.Email, "Sistema de Contatos - Nova Senha", mensagem);
+
+                        if (emailEnviado)
+                        {
+                            _usuarioRepositorio.Atualizar(usuario);
+                            TempData["MensagemSucesso"] = $"Enviamos para seu e-mail cadastrado uma nova senha.";
+                        }
+                        else
+                        {
+                            TempData["MensagemErro"] = $"Não conseguimos enviar e-mail. Por favor, tente novamente.";
+                        }
+
                         return RedirectToAction("Index", "Login");
                     }
 
-                    TempData["MensagemErro"] = $"Não conseguimos redefinir a sua senha. Por Favor, verifique os dados informados ";
+                    TempData["MensagemErro"] = $"Não conseguimos redefinir sua senha. Por favor, verifique os dados informados.";
                 }
+
                 return View("Index");
             }
             catch (Exception erro)
